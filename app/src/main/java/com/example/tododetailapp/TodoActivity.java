@@ -57,7 +57,7 @@ public class TodoActivity extends AppCompatActivity {
 
         setTextViewComplete("");
 
-        textViewTodo.setText(mTodos[mTodoIndex].toString());
+        textViewTodo.setText(mTodos[mTodoIndex]);
 
         todoDetail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +65,23 @@ public class TodoActivity extends AppCompatActivity {
                 Intent intent = TodoDetailActivity.newIntent(TodoActivity.this, mTodoIndex);
             }
         });
-
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mTodoIndex = (mTodoIndex + 1) % mTodos.length;
-                textViewTodo.setText(mTodos[mTodoIndex].toString());
+                textViewTodo.setText(mTodos[mTodoIndex]);
+                setTextViewComplete("");
+            }
+        });
+
+        buttonPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTodoIndex = (mTodoIndex - 1) % mTodos.length;
+                if (mTodoIndex < 0) {
+                    mTodoIndex = mTodos.length - 1;
+                }
+                textViewTodo.setText(mTodos[mTodoIndex]);
                 setTextViewComplete("");
             }
         });
@@ -92,6 +103,10 @@ public class TodoActivity extends AppCompatActivity {
                 todoDetailActivityLauncher.launch(intent);
             }
         });
+
+
+
+
 
     }
 
